@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签新增</title>
+    <script src="../../static/js/jquery-2.1.0.js"></script>
+    <script src="../../static/lib/editormd/editormd.min.js"></script>
+    <script src="../../static/layui/layui.js"></script>
+
+    <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="stylesheet" href="../../static/css/stely.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.css">
+</head>
+
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" style="z-index: 100;"  th:replace="admin/_fragments::menu(3)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item layui-this">
+                <a href="javascript:;">博客</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">列表</a></dd>
+                    <dd><a href="">发布</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                         class="layui-nav-img">
+                    tester
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Your Profile</a></dd>
+                    <dd><a href="">Settings</a></dd>
+                    <dd><a href="">Sign out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-container layui-body" style="left: 0px;z-index: 100;">
+        <div style="padding: 15px;">
+            <div class="layui-col-md12  m-margin-tb-large">
+                <div class="layui-panel m-padded">
+                    <form class="layui-form m-margin-tb-tiny" th:object="${tag}"
+                          th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})} " method="post">
+                        <input type="hidden" name="id" th:value="*{id}">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="padding: 0;">
+                                <div class="layui-blogs-label m-5FB878 m-border">标签</div>
+                            </label>
+                            <div class="layui-input-block" style="margin-left: 80px;">
+                                <input type="text" name="name" required lay-verify="required" placeholder="标签名称"
+                                       autocomplete="off" class="layui-input" th:value="*{name}">
+                            </div>
+                        </div>
+                        <!--/*/
+                        <div class="layui-form-item" th:if="${#fields.hasErrors('name')}" style="display: none;" >
+                            <p th:errors="*{name}" id="error">提交信息不符合规则</p>
+                        </div>
+                         /*/-->
+                        <div class="layui-form-item" style="text-align: center;">
+                            <div class="layui-inline">
+                                <button class="layui-btn layui-btn-return"  onclick="window.history.go(-1)">返回</button>
+                                <button class="layui-btn layui-btn-release" lay-submit>发布</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部固定区域 -->
+    <footer class="layui-bg-black m-padded-tb layui-footer " style="left: 0px;height: auto;z-index: 100;" th:replace="admin/_fragments::footer">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md12">
+                    <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+<script type="text/javascript">
+    layui.use(['layer'], function () {
+        var layer = layui.layer;
+        var $ = layui.$;
+        var msg = $("#error").html();
+        if (msg != null){
+            layer.msg(msg, {offset: '80px'});
+        }
+    })
+</script>
+</html>

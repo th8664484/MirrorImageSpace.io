@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签</title>
+    <link rel="stylesheet" href="../static/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="../static/css/stely.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/layui/layui.js"></script>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:replace="_fragments::menu(3)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item"><a href="#">首页</a></li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+            <li class="layui-nav-item"><a href="#">归档</a></li>
+            <li class="layui-nav-item"><a href="#">关于我</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item" lay-unselect>
+                <div style="float: none; margin-top: 0;height: 0;">
+                    <input id="sou" type="text" placeholder="search...."/>
+                    <i class="layui-icon layui-icon-search"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- 文章列表 -->
+<div class="layui-container m-padded-tb-big">
+    <div class="layui-row">
+        <div class="layui-col-md12 m-border">
+            <div class="layui-card">
+                <div class="layui-card-header m-border m-padded-tb">
+                    <!-- 头部 -->
+                    <div class="m-float-l m-teal">
+                        <h2>标签</h2>
+                    </div>
+                    <div class="m-float-r">
+                        共 <h2 class="m-inline-block m-text-thin m-orange" th:text="${#arrays.length(tags)}">14 </h2> 个
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <!-- 中间部分 -->
+                    <div class="layui-row layui-col-space15 m-border-bottom m-margin-b-tiny">
+                        <div class="layui-col-md12">
+                            <div class="menu m-padded-mini">
+                                <a href="#" class="m-label-s m-inline-block m-margin"
+                                   th:each="tag:${tags}" th:href="@{/tags/{id}(id=${tag.id})}">
+                                    <div class="layui-btn layui-btn-radius layui-btn-primary" th:attr="class= ${tag.id==activeTagId} ? 'layui-btn layui-btn-radius':'layui-btn layui-btn-radius layui-btn-primary'"
+                                         th:attrappend="class = ' m-margin-b-tiny'">
+                                        <span th:text="${tag.name}"> 查看消息</span>
+                                        <span class="m-border-left m-padded-mini"  th:text="${tag.counts}">24</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card m-border" style="height: 270px;" th:if="${page.total}==0">
+                        <div class="layui-card-body m-margin-top-large m-text-align layui-text layui-font-30">
+                            <span>该分类下没有博客</span>
+                        </div>
+                    </div>
+                    <div class="layui-card m-border" th:each="blog:${page.records}">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}"
+                                   th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body m-margin-top-large">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p style="height: 100px;">
+                                        <a href="#" class="layui-text layui-word-aux"
+                                           th:text="|${blog.description}.....|">
+                                            正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         th:src="@{${blog.user.avatar}}"
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span th:text="${blog.user.nickname}">李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span
+                                                        th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span th:text="${blog.views}">2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <span class="layui-btn layui-btn-primary layui-btn-sm layui-border-green"
+                                                  th:text="${blog.type.name}">认知升级</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive m-padded-tb-small">
+                                    <a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             th:src="@{${blog.firstPicture}}" style="width: 190px;height: 115px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 尾部 -->
+                    <div class="layui-card" th:if="${page.total}>1">
+                        <div class="layui-card-header">
+                            <div class="m-float-l">
+                                <a href="#" th:href="@{'/tags/'+${activeTagId}(current=${page.current}-1)}"
+                                   th:if="${page.hasPrevious()}"
+                                   class="layui-btn layui-btn-sm layui-btn-primary layui-border-green">上一页</a>
+                            </div>
+                            <div class="m-float-r">
+                                <a href="#" th:href="@{'/tags/'+${activeTagId}(current=${page.current}-1)}"
+                                   th:if="${page.hasNext()}"
+                                   class="layui-btn layui-btn-sm layui-btn-primary layui-border-green">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 尾部 -->
+<footer class="layui-bg-black" th:replace="_fragments::footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">最新博客</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">联系我</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">Email：lirenmi@163.com</span>
+                    <span class="item layui-text layui-word-aux">QQ：865729312</span>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <h3 class="m-text-thin m-text-spaced m-text-align">Blog</h3>
+                <p class="layui-text layui-word-aux">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

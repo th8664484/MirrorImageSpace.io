@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误页</title>
+    <link rel="stylesheet" href="../../static/css/iconfont.css" >
+    <link rel="stylesheet" href="../../static/css/me.css" >
+    <link rel="stylesheet" href="../../static/css/stely.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" >
+    <script src="../../static/layui/layui.js" ></script>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:replace="_fragments::menu(0)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item layui-this"><a href="#">首页</a></li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+            <li class="layui-nav-item"><a href="#">归档</a></li>
+            <li class="layui-nav-item"><a href="#">关于我</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item" lay-unselect>
+                <div class="layui-input-inline " style="float: none; margin: 0;right: -4px;">
+                    <input type="text" style="border-radius: 2px 0 0 2px;" name="query" placeholder="search...."
+                           class="layui-input">
+                </div>
+                <button class="layui-btn layui-bg-gray" lay-submit style="margin-right: 100px;border-radius: 0 2px 2px 0;">
+                    <i class="layui-icon layui-icon-search"></i> 搜索
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="layui-container m-padded-tb-big">
+    <div class="layui-row">
+        <div class="layui-col-md9">
+            <div class="layui-panel" >
+                <div style="height: 447px;line-height: 445px;" class="m-text-align layui-text layui-font-30">
+                    对不起，服务器错误，请联系管理员
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div>
+    <div th:utext="'&lt;!--'" th:remove="tag"></div>
+    <div th:utext="'Failed Request URL : ' + ${url}" th:remove="tag"></div>
+    <div th:utext="'Exception message : ' + ${exception.message}" th:remove="tag"></div>
+    <ul th:remove="tag">
+        <li th:each="st : ${exception.stackTrace}" th:remove="tag"><span th:utext="${st}" th:remove="tag"></span></li>
+    </ul>
+    <div th:utext="'--&gt;'" th:remove="tag"></div>
+</div>
+<!-- 尾部 -->
+<footer class="layui-bg-black m-padded-tb" th:replace="_fragments::footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">最新博客</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">联系我</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">Email：lirenmi@163.com</span>
+                    <span class="item layui-text layui-word-aux">QQ：865729312</span>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <h3 class="m-text-thin m-text-spaced m-text-align">Blog</h3>
+                <p class="layui-text layui-word-aux">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

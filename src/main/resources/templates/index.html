@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客</title>
+    <link rel="stylesheet" href="../static/css/iconfont.css" >
+    <link rel="stylesheet" href="../static/css/me.css" >
+    <link rel="stylesheet" href="../static/css/stely.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" >
+    <script src="../static/layui/layui.js" ></script>
+</head>
+
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:replace="_fragments::menu(1)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item layui-this"><a href="#">首页</a></li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+            <li class="layui-nav-item"><a href="#">归档</a></li>
+            <li class="layui-nav-item"><a href="#">关于我</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item" lay-unselect>
+                <div class="layui-input-inline " style="float: none; margin: 0;right: -4px;">
+                    <input type="text" style="border-radius: 2px 0 0 2px;" value="" placeholder="search...."
+                           class="layui-input">
+                </div>
+                <button class="layui-btn layui-bg-gray" style="margin-right: 100px;border-radius: 0 2px 2px 0;">
+                    <i class="layui-icon layui-icon-search"></i> 搜索
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- 文章列表 -->
+<div class="layui-container m-padded-tb-big">
+    <div class="layui-row">
+        <div class="layui-col-md8 m-border">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <!-- 头部 -->
+                    <div class="m-float-l m-teal">
+                        <h2>博客</h2>
+                    </div>
+                    <div class="m-float-r">
+                        共 <h2 class="m-inline-block m-text-thin m-orange" th:text="${page.total}">14 </h2> 篇
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <!-- 中间部分 -->
+                    <div class="layui-card m-border" th:each="blog:${page.records}">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}" th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body m-margin-top-large">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p style="height: 100px;">
+                                        <a href="#" class="layui-text layui-word-aux" th:text="|${blog.description}......|">
+                                            正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""th:src="@{${blog.user.avatar}}"
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span th:text="${blog.user.nickname}">李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span  th:text="${blog.views}">2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <span class="layui-btn layui-btn-primary layui-btn-sm layui-border-green" th:text="${blog.type.name}">认知升级</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive m-padded-tb-small">
+                                    <a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}" >
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             th:src="@{${blog.firstPicture}}"
+                                             style="width: 190px;height: 115px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/*-->
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i> <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i>
+                                                    <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i>
+                                                    <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i>
+                                                    <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i>
+                                                    <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <h2><a href="#" target="_blank">你真的理解什么是财富自由吗?</a></h2>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md8">
+                                    <p>
+                                        <a href="#" target="_blank"
+                                           class="layui-text
+                                                layui-word-aux">正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...
+                                        </a>
+                                    </p>
+                                    <div style="overflow: hidden;">
+                                        <div class="m-float-l">
+                                            <div class="m-list-div layui-text layui-word-aux">
+                                                <div class="m-margin-lf-tiny">
+                                                    <img src="https://unsplash.it/100/100?image=1005" alt=""
+                                                         class="m-radius-50" style="width: 22px;height: 22px;">
+                                                    <span>李仁密</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="layui-icon
+                                                            layui-icon-date"></i><span>2017-10-01</span>
+                                                </div>
+                                                <div class="m-margin-lf-tiny">
+                                                    <i class="iconfont icon-liulan"></i>
+                                                    <span>2342</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-float-r ">
+                                            <a href="#" target="_blank" class="m-label m-inline-block">认知升级</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md4 m-padded-lr-responsive">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/0/800/450" class="m-radius" alt=""
+                                             style="width: 190px;height: 115;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--*/-->
+                    <!-- 尾部 -->
+                    <div class="layui-card"  th:if="${page.total}>1">
+                        <div class="layui-card-header">
+                            <div class="m-float-l">
+                                <a href="#" th:href="@{/(current=${page.current}-1)}"  th:if="${page.hasPrevious()}"
+                                   class="layui-btn layui-btn-sm layui-btn-primary layui-border-green">上一页</a>
+                            </div>
+                            <div class="m-float-r">
+                                <a href="#" th:href="@{/(current=${page.current}+1)}"  th:if="${page.hasNext()}"
+                                   class="layui-btn layui-btn-sm layui-btn-primary layui-border-green">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4 m-padded-lr-responsive">
+            <div class="layui-card m-border">
+                <div class="layui-card-header m-bj-hui ">
+                    <div class="m-float-l">
+                        <i class="layui-icon layui-icon-app"></i>分类
+                    </div>
+                    <div class="m-float-r">
+                        <a href="#" target="_blank" th:href="@{types/-1}" class=" m-00b5ad">more <i
+                                class="layui-icon layui-icon-next layui-font-12"></i></a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <div class="menu">
+                        <a href="#" target="_blank" class="m-inline-block m-fenlei-s"
+                           th:each="type:${types}"  th:href="@{/types/{id}(id=${type.id})}"
+                        >
+                            <span th:text="${type.name}">学习日志</span>
+                            <span class="layui-badge m-float-r m-margin-top m-bj-teal" th:text="${type.counts}">9</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="layui-card m-border">
+                <div class="layui-card-header m-bj-hui">
+                    <div class="m-float-l">
+                        <i class="layui-icon layui-icon-note"></i>标签
+                    </div>
+                    <div class="m-float-r">
+                        <a href="#" target="_blank" th:href="@{tags/-1}" class=" m-00b5ad">more <i
+                                class="layui-icon layui-icon-next layui-font-12"></i></a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <div class="menu m-padded-mini">
+                        <a href="#" target="_blank" class="m-label-s m-inline-block m-margin"
+                            th:each="tag:${tags}" th:href="@{/tags/{id}(id=${tag.id})}"
+                        >
+                            <button class="layui-btn layui-btn-radius layui-btn-primary layui-btn-xs">
+                                <span th:text="${tag.name}"> 查看消息</span>
+                                <span th:text="${tag.counts}" class="layui-badge-rim" style="border: none;">1</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card m-border">
+                <div class="layui-card-header m-bj-hui">
+                    <div class="m-float-l">
+                        <i class="layui-icon layui-icon-senior "></i>最新推荐
+                    </div>
+                    <div class="m-float-r">
+                        <a href="#" target="_blank" class=" m-00b5ad">more <i
+                                class="layui-icon layui-icon-next layui-font-12"></i></a>
+                    </div>
+                </div>
+                <div class="layui-card-body m-list-a" style="overflow:hidden;">
+                    <a href="#" target="_blank" class="m-fenlei-s layui-text layui-word-aux" style="line-height: 40px;"
+                        th:each="blog:${blogs}" th:href="@{/blog/{id}(id=${blog.id})}"
+                    >
+                        <span th:text="${blog.title}">用户故事（User Story）</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 尾部 -->
+<footer class="layui-bg-black m-padded-tb" th:replace="_fragments::footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">最新博客</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">联系我</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">Email：lirenmi@163.com</span>
+                    <span class="item layui-text layui-word-aux">QQ：865729312</span>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <h3 class="m-text-thin m-text-spaced m-text-align">Blog</h3>
+                <p class="layui-text layui-word-aux">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

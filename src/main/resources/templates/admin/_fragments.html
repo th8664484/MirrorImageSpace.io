@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}"></title>
+    <script src="../static/js/jquery-2.1.0.js" th:src="@{/js/jquery-2.1.0.js}"></script>
+    <link rel="stylesheet" href="../static/css/iconfont.css" th:href="@{/css/iconfont.css}"><!-- 阿里图标-->
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}"><!-- 自定义样式-->
+    <link rel="stylesheet" href="../static/css/stely.css" th:href="@{/css/stely.css}">
+    <link rel="stylesheet" th:href="@{/layui-formSelects/formSelects-v4.css}"/>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" th:href="@{/layui/css/layui.css}"><!--layui框架-->
+    <script src="../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.css" th:href="@{/lib/editormd/css/editormd.css}">
+</head>
+<body>
+<!-- 导航 -->
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:fragment="menu(n)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item" th:classappend="${n==1}?'layui-this'">
+                <a href="javascript:;" >博客</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="" th:href="@{/admin/blogs}">列表</a></dd>
+                    <dd><a href="" th:href="@{/admin/blogs/input}">发布</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" th:classappend="${n==2}?'layui-this'">
+                <a href="javascript:;" >分类</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="" th:href="@{/admin/types}">列表</a></dd>
+                    <dd><a href="" th:href="@{/admin/types/input}">新增</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" th:classappend="${n==3}?'layui-this'">
+                <a href="javascript:;" >标签</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="" th:href="@{/admin/tags}">列表</a></dd>
+                    <dd><a href="" th:href="@{/admin/tags/input}">新增</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                         th:src="@{${session.user.avatar}}"
+                         class="layui-nav-img">
+                    <span th:text="${session.user.nickname}"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="" th:href="@{/admin/logout}">Sign out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 尾部 -->
+<!-- 底部固定区域 -->
+<footer class="layui-bg-black m-padded-tb layui-footer " style="left: 0px;height: auto;" th:fragment="footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">
+                    <a href="https://beian.miit.gov.cn/" >冀ICP备2021005608号-1</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

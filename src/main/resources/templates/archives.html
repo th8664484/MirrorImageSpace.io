@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档</title>
+    <link rel="stylesheet" href="../static/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="../static/css/stely.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.css">
+    <script src="../static/layui/layui.js"></script>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:replace="_fragments::menu(4)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item layui-this"><a href="#">首页</a></li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+            <li class="layui-nav-item"><a href="#">归档</a></li>
+            <li class="layui-nav-item"><a href="#">关于我</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item" lay-unselect>
+                <div style="float: none; margin-top: 0;height: 0;">
+                    <input id="sou"  type="text" placeholder="search...." />
+                    <i class="layui-icon layui-icon-search"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- 文章详情 -->
+<div class="layui-container m-padded-tb-big">
+    <div class="layui-row">
+        <div class="layui-col-md12 m-border">
+            <div class="layui-card">
+                <div class="layui-card-header m-border m-padded-tb" style="overflow: hidden;">
+                    <!-- 头部 -->
+                    <div class="m-float-l m-teal">
+                        <h2>归档</h2>
+                    </div>
+                    <div class="m-float-r">
+                        共 <h2 class="m-inline-block m-text-thin m-orange" th:text="${blogCount}">114 </h2> 个
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <!-- 中间部分 -->
+                    <div class="timeline-box shadow" style="padding-left: 20%;">
+                        <div class="timeline-main">
+                            <h1><i class="fa fa-clock-o"></i></h1>
+                            <div class="timeline-line"></div>
+
+                            <th:block th:each="item : ${archiveMap}">
+                            <div class="timeline-year">
+                                <h2><a class="yearToggle m-teal"> <span th:text="${item.key}">2021</span>年 </a></h2>
+                                <div class="timeline-month">
+                                    <ul>
+                                        <li th:each="blog:${item.value}">
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date" th:text="${
+                                                #strings.replace(#strings.append(#dates.format(blog.updateTime,'MM-dd'),'日'),'-','月')
+                                                }">10月24日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight" th:text="${blog.title}">
+                                                layui 2.0 的一切准备工作似乎都已到位。
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+<!--/*-->
+                                        <li>
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date">09月06日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight">
+                                                <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                        <li>
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date">08月26日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight">
+                                                中国人民抗日战争胜利72周年
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+<!--*/-->
+                                    </ul>
+                                </div>
+                            </div>
+                            </th:block>
+<!--/*-->
+                            <div class="timeline-year">
+                                <h2><a class="yearToggle">2018 年</a><i class="fa fa-caret-down fa-fw"></i></h2>
+                                <div class="timeline-month">
+                                    <ul>
+                                        <li>
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date">10月24日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight">
+                                                layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                        <li>
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date">09月06日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight">
+                                                <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                        <li>
+                                            <div class="h4 animated fadeInLeft">
+                                                <p class="date">08月26日</p>
+                                            </div>
+                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                            <div class="content animated fadeInRight">
+                                                中国人民抗日战争胜利72周年
+                                            </div>
+                                            <div class="clear"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+<!--*/-->
+                            <h1 style="padding-top:4px;padding-bottom:2px;margin-top:40px;"><i class="fa fa-hourglass-end"></i>THE END</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 尾部 -->
+<footer class="layui-bg-black" th:replace="_fragments::footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">最新博客</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">联系我</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">Email：lirenmi@163.com</span>
+                    <span class="item layui-text layui-word-aux">QQ：865729312</span>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <h3 class="m-text-thin m-text-spaced m-text-align">Blog</h3>
+                <p class="layui-text layui-word-aux">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

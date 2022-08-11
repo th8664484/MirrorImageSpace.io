@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客发布</title>
+    <script src="../../static/js/jquery-2.1.0.js"></script>
+    <script src="../../static/lib/editormd/editormd.min.js"></script>
+    <script src="../../static/layui/layui.js"></script>
+
+    <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="stylesheet" href="../../static/css/stely.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.css">
+</head>
+
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" style="z-index: 100;"  th:replace="admin/_fragments::menu(1)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#">TONGHUI</a></li>
+            <li class="layui-nav-item layui-this">
+                <a href="javascript:;">博客</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">列表</a></dd>
+                    <dd><a href="">发布</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="#">分类</a></li>
+            <li class="layui-nav-item"><a href="#">标签</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a href="javascript:;">
+                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                         class="layui-nav-img">
+                    tester
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Your Profile</a></dd>
+                    <dd><a href="">Settings</a></dd>
+                    <dd><a href="">Sign out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-container layui-body" style="left: 0px;z-index: 100;">
+        <div style="padding: 15px;">
+            <div class="layui-col-md12  m-margin-tb-large">
+                <div class="layui-panel m-padded">
+                    <form class="layui-form m-margin-tb-tiny" th:object="${blog}" th:action="@{/admin/blogs}" method="post" id="form">
+                        <input type="hidden" name="id" th:value="*{id}">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="padding: 0;">
+                                <select name="flag" lay-verify="原创" th:attr="lay-verify=*{flag}">
+                                    <option value="原创">原创</option>
+                                    <option value="转载">转载</option>
+                                    <option value="翻译">翻译</option>
+                                </select>
+                            </label>
+                            <div class="layui-input-block" style="margin-left: 80px;">
+                                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题"
+                                       autocomplete="off" class="layui-input" th:value="*{title}">
+                            </div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md5">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " style="padding: 0;">
+                                        <div class="layui-blogs-label m-5FB878 m-border">分类</div>
+                                    </label>
+                                    <div class="layui-input-block" style="margin-left: 80px;">
+                                        <select name="typeId" xm-select="selectTypes" xm-select-skin="warm"
+                                                lay-verify="required" xm-select-search="" xm-select-radio="">
+                                            <option value="">选择分类</option>
+                                            <option  th:each="type:${types}" th:value="${type.id}" th:text="${type.name}">上海</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 m-padded">
+                            </div>
+                            <div class="layui-col-md5">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="padding: 0;">
+                                        <div class="layui-blogs-label m-5FB878 m-border">标签</div>
+                                    </label>
+                                    <div class="layui-input-block" style="margin-left: 80px;">
+                                        <div>
+                                            <select name="tagIds" xm-select="selectTags" xm-select-height="38px" xm-select-skin="warm" xm-select-search="">
+                                                <option value="" >选择标签</option>
+                                                <option th:each="tag:${tags}" th:value="${tag.id}" th:text="${tag.name}"
+                                                        >上海</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="padding: 0;">
+                                <div class="layui-blogs-label m-5FB878 m-border">首图</div>
+                            </label>
+                            <div class="layui-input-block" style="margin-left: 80px;">
+                                <input type="text" name="firstPicture" required lay-verify="required" placeholder="首图引用地址"
+                                       autocomplete="off" class="layui-input" th:value="*{firstPicture}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="padding: 0;">
+                                <div class="layui-blogs-label m-5FB878 m-border">简介</div>
+                            </label>
+                            <div class="layui-input-block" style="margin-left: 80px;">
+                                <textarea name="description"  lay-verify="required" placeholder="博客简绍...."
+                                          autocomplete="off"class="layui-textarea" th:text="*{description}">
+
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div id="blogs-input-editormd" style="z-index: 100;">
+                                <textarea name="content" placeholder="请输入博客内容" th:text="*{content}" lay-verify="required" class="layui-textarea">
+[TOC]
+
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="checkbox" name="recommend" th:checked="*{recommend}" lay-skin="primary" title="推荐" checked="">
+                            <input type="checkbox" name="shareStatement" th:checked="*{shareStatement}" lay-skin="primary" title="转载声明">
+                            <input type="checkbox" name="appreciation" th:checked="*{appreciation}" lay-skin="primary" title="赞赏">
+                            <input type="checkbox" name="commentabled" th:checked="*{commentabled}" lay-skin="primary" title="评论">
+                        </div>
+                        <div class="layui-form-item" style="text-align: center;">
+                            <div class="layui-inline">
+                                <button class="layui-btn layui-btn-return" onclick="window.history.go(-1)">返回</button>
+                                <button class="layui-btn layui-btn-preservation" lay-submit lay-filter="seva-btn">保存</button>
+                                <button class="layui-btn layui-btn-release" lay-submit lay-filter="publ-btn">发布</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="hidden" name="published" value="" th:value="*{published}" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部固定区域 -->
+    <footer class="layui-bg-black m-padded-tb layui-footer " style="left: 0px;height: auto;z-index: 100;" th:replace="admin/_fragments::footer">
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md12">
+                    <p class="layui-text layui-word-aux m-text-align">Copyright © 2021 layui.itmtr.cn MIT Licensed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+<script type="text/javascript">
+    var testEditor;
+    $(function() {
+        testEditor = editormd("blogs-input-editormd", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            // path    : "../../static/lib/editormd/lib/"
+            path    : "/lib/editormd/lib/"
+        });
+    });
+</script>
+<script type="text/javascript" th:inline="javascript">
+    //全局定义一次, 加载formSelects
+    layui.config({
+        base: '/layui-formSelects/' //此处路径请自行处理, 可以使用绝对路径
+    }).extend({
+        formSelects: 'formSelects-v4'
+    });
+    //加载模块
+    layui.use(['jquery', 'formSelects','form'], function(){
+        var formSelects = layui.formSelects;
+        var form = layui.form;
+        var $= layui.$;
+
+        /*<![CDATA[*/
+        var type = /*[[${blog.typeId}]]*/ null;
+        var tags = /*[[${blog.tagsId}]]*/ null;
+        /*]]>*/
+        formSelects.value('selectTypes', [type]);
+        var strs = tags!=null? tags.split(","): [];
+        formSelects.value('selectTags', strs);
+        form.on('submit(seva-btn)', function(data){
+            $("input[name=published]").val("false")
+            var obj = data.field;
+            console.log(obj)
+            $("#form").submit();
+            return false;
+        })
+        form.on('submit(publ-btn)', function(data){
+            $("input[name=published]").val("true")
+            var obj = data.field;
+            console.log(obj)
+            $("#form").submit();
+            return false;
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}"></title>
+    <script src="../static/js/jquery-2.1.0.js" th:src="@{/js/jquery-2.1.0.js}"></script>
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}"><!-- 页面排版-->
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"><!-- 代码高亮-->
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}"><!-- 生成目录-->
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}"><!-- 动画效果-->
+    <link rel="stylesheet" href="../static/css/iconfont.css" th:href="@{/css/iconfont.css}"><!-- 阿里图标-->
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}"><!-- 自定义样式-->
+    <link rel="stylesheet" href="" th:href="@{/font-awesome/css/font-awesome.css}">
+    <link rel="stylesheet" href="../static/css/stely.css" th:href="@{/css/stely.css}">
+    <link rel="stylesheet" href="../static/layui/css/layui.css" th:href="@{/layui/css/layui.css}"><!--layui框架-->
+    <script src="../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script><!-- 代码高亮-->
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script><!--生成目录-->
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script><!--二维码生成-->
+    <script src="../static/lib/scrollTo/jquery.scrollTo.min.js" th:src="@{/lib/scrollTo/jquery.scrollTo.min.js}"></script><!--滚动-->
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="layui-bg-black layui-header" th:fragment="menu(n)">
+    <div class="layui-container">
+        <ul class="layui-nav layui-layout-left" lay-bar="disabled" lay-filter="" style="left: 0px;">
+            <li class="layui-nav-item" lay-unselect><a href="#" th:href="${session.user}!= null ? @{/admin/blogs} : '#'">TONGHUI</a></li>
+            <li class="layui-nav-item " th:classappend="${n==1}?'layui-this'"><a href="#" th:href="@{/}">首页</a></li>
+            <li class="layui-nav-item" th:classappend="${n==2}?'layui-this'"><a href="#" th:href="@{/types/-1}">分类</a></li>
+            <li class="layui-nav-item" th:classappend="${n==3}?'layui-this'"><a href="#" th:href="@{/tags/-1}">标签</a></li>
+            <li class="layui-nav-item" th:classappend="${n==4}?'layui-this'"><a href="#" th:href="@{/archives}">归档</a></li>
+            <li class="layui-nav-item" th:classappend="${n==5}?'layui-this'"><a href="#" th:href="@{/about}">关于我</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-bar="disabled" lay-filter="">
+            <li class="layui-nav-item" lay-unselect>
+                <form class="layui-form" method="post" target="_blank" th:action="@{/search}">
+                    <div class="layui-input-inline " style="float: none; margin: 0;right: -4px;">
+                        <input type="text" style="border-radius: 2px 0 0 2px;" name="query" placeholder="search...."
+                               th:value="${query}"  class="layui-input">
+                    </div>
+                    <button class="layui-btn layui-bg-gray" lay-submit style="margin-right: 100px;border-radius: 0 2px 2px 0;">
+                        <i class="layui-icon layui-icon-search"></i> 搜索
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 尾部 -->
+<footer class="layui-bg-black m-padded-tb" th:fragment="footer">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">最新博客</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                    <span class="item layui-text layui-word-aux">用户故事（User Story）</span>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <h3 class="m-text-align">联系我</h3>
+                <div class="m-list-sp">
+                    <span class="item layui-text layui-word-aux">Email：lirenmi@163.com</span>
+                    <span class="item layui-text layui-word-aux">QQ：865729312</span>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <h3 class="m-text-thin m-text-spaced m-text-align">Blog</h3>
+                <p class="layui-text layui-word-aux">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <p class="layui-text layui-word-aux m-text-align">
+                    <a href="https://beian.miit.gov.cn/" >冀ICP备2021005608号-1</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
